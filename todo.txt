@@ -1,0 +1,6 @@
+1. fix the item vs equipable passive/active conflicts
+2. add dragon born race stuff
+3. implement run(String s) using https://stackoverflow.com/questions/935175/convert-string-to-code/935316#935316
+4. get a dnd spell api
+5. figure out how to use curl
+6. 
