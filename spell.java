@@ -35,6 +35,8 @@ public class spell extends action {
             String savingThrowModifier) {
         this(name, isAttack, range, level, casttime, duration, desc, damageFormula, damageType);
         this.additionalLevelIncrease = additionalLevelIncrease;
+        this.savingThrowModifier = savingThrowModifier;
+        this.savingThrowType = savingThrowType;
     }
 
     public String damageAtLevel(int spellSlotLevel) {
