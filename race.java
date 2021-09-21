@@ -4,12 +4,26 @@ public class race {
 
     // valid races: dragonborn, dwarf, elf, gnome, half-elf, halfling, half-orc,
     // human, tiefling
-    public static ArrayList<String> getBonuses(String race) {
+    public static ArrayList<String> getBonuses(String race, String raceArchetype) {
         ArrayList<String> a = new ArrayList<String>();
         switch (race) {
             case ("dragonborn"):
                 a.add("size:medium");
                 a.add("speed:30");
+                switch(raceArchetype)
+                {
+                    case ("black"):
+                    a.add()
+                    case ("blue"):
+                    case ("brass"):
+                    case ("bronze"):
+                    case ("copper"):
+                    case ("gold"):
+                    case ("green"):
+                    case ("red"):
+                    case ("silver"):
+                    case ("white"):
+                }
                 break;
             case ("dwarf"):
                 a.add("size:medium");
