@@ -1,7 +1,9 @@
+import com.google.gson.Gson;
+
 import static spark.Spark.*;
 
 public class api {
-    public static String search(String s)
+    public static response search(String s)
     {
         final String[] ret = new String[1];
 
@@ -9,7 +11,10 @@ public class api {
             ret[0] =res.body();
             return 200;
         });
-        return ret[0];
+
+        Gson gson = new Gson();
+
+        return gson.fromJson(ret[0], response.class);
     }
 
 
