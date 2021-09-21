@@ -61,4 +61,10 @@ public class race {
         return a;
 
     }
+
+    //if no archetype is specifically stated use a default racetype
+    public static ArrayList<String> getBonuses(String race) {
+    {
+        return getBonuses(race, "default");
+    }
 }

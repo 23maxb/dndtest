@@ -1,4 +1,3 @@
-import java.nio.IntBuffer;
 import java.util.ArrayList;
 
 public class player extends entity {
@@ -139,13 +138,25 @@ public class player extends entity {
     public ArrayList<String> proficiencies;
     public ArrayList<action> possibleActions;
 
-    public player(String cl, int money, ArrayList<item> a, double mH, boolean m, String n, boolean ren, String race) {
+    public player(String cl, int money, ArrayList<item> a, double mH, boolean m, String n, boolean ren, String race,
+            String raceArchetype) {
         super(mH, m, n, ren, race);
         playerClass = cl;
         bronzeCoins = money;
         inventory = a;
         speed = 30;
         speedBonus = "Base: 30ft";// needstobeupdated
+        addBonuses(race.getBonuses(race, raceArchetype));//ask saahil
+    }
+
+    public player(String cl, int money, ArrayList<item> a, double mH, boolean m, String n, boolean ren, String race) {
+        this(cl, money, a, mH, m, n, ren, race, "default");
+    }
+
+    public void addBonuses(ArrayList<String> a)
+    {
+        return 
+
     }
 
     public void addItem(item newItem) {
