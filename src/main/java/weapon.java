@@ -132,7 +132,7 @@ public class weapon extends item {
                 setDamageFormula("1d4");
                 setDamageType("bludgeoning");
                 setMartial(false);
-                setModifiers(new ArrayList<String>(List.of("light")));
+                setModifiers(new ArrayList<String>(List.of("light")));//ask saahil what is wrong
 
                 break;// this will exit the switch statement (basically we skip comparisons of every
                       // other weapon after the one we have is found)

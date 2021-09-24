@@ -146,7 +146,7 @@ public class player extends entity {
         inventory = a;
         speed = 30;
         speedBonus = "Base: 30ft";// needstobeupdated
-        addBonuses(race.getBonuses(race, raceArchetype));//ask saahil
+       // addBonuses(race.getBonuses(race, raceArchetype));//ask saahil
     }
 
     public player(String cl, int money, ArrayList<item> a, double mH, boolean m, String n, boolean ren, String race) {
@@ -155,7 +155,7 @@ public class player extends entity {
 
     public void addBonuses(ArrayList<String> a)
     {
-        return 
+        return; //fix here
 
     }
 

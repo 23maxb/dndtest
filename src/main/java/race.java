@@ -10,11 +10,10 @@ public class race {
             case ("dragonborn"):
                 a.add("size:medium");
                 a.add("speed:30");
-                switch(raceArchetype)
-                {
+                switch (raceArchetype) {
                     case ("black"):
-                    a.add("resistance:acid");
-                    a.add("equipment:equipable(\"dragonBornBreathWeaponAcid\", false, 0, 1, -1, null, new spell(\"dragonBornBreathWeaponAcid\", true, 30, 0, ), null, false, false, \"shortrest\")");
+                        a.add("resistance:acid");
+                        a.add("equipment:equipable(\"dragonBornBreathWeaponAcid\", false, 0, 1, -1, null, new spell(\"dragonBornBreathWeaponAcid\", true, 30, 0, ), null, false, false, \"shortrest\")");
                     case ("blue"):
                     case ("brass"):
                     case ("bronze"):
@@ -65,7 +64,8 @@ public class race {
 
     // if no archetype is specifically stated use a default racetype
     public static ArrayList<String> getBonuses(String race) {
-    {
-        return getBonuses(race, "default");
+        {
+            return getBonuses(race, "default");
+        }
     }
 }
