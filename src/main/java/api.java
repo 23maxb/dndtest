@@ -1,5 +1,8 @@
+import com.google.gson.Gson;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.lang.reflect.Type;
 import java.net.URL;
 
 public class api {
@@ -14,8 +17,15 @@ public class api {
         return toReturn;
     }
 
+    //https://www.dnd5eapi.co/docs/
+    //
     public static String get5eEntryPath(String searchterm) throws Exception
     {
         return searchcurl("https://www.dnd5eapi.co/api/" + searchterm);
+    }
+
+    public static Object jsonToObj(String json, Type t)
+    {
+        return (new Gson()).fromJson(json, t);
     }
 }

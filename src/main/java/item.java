@@ -6,10 +6,11 @@ public class item extends thing {
     public int durability;
     public String cooldownReq;
     public boolean onCooldown;
-    public ArrayList<String> passives;
+    public ArrayList<passive> passives;
     public action active;
+    public String itemType;
 
-    public item(String n, boolean ren, double w, int c, int d, action active, ArrayList<String> passives, String reqCooldown) {
+    public item(String n, boolean ren, double w, int c, int d, action active, ArrayList<passive> passives, String reqCooldown) {
         super(n, ren);
         weight = w;
         count = c;
@@ -56,12 +57,17 @@ public class item extends thing {
         this.onCooldown = onCooldown;
     }
 
-    public ArrayList<String> getPassives() {
+    public ArrayList<passive> getPassives() {
         return passives;
     }
 
-    public void setPassives(ArrayList<String> passives) {
+    public void setPassives(ArrayList<passive> passives) {
         this.passives = passives;
+    }
+
+    public void addPassive(passive np)
+    {
+        passives.add(np);
     }
 
     public action getActive() {
