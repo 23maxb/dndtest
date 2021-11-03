@@ -24,6 +24,15 @@ public class spell extends action {
         this.damageType = damageType;
     }
 
+    /*public spell(String name) throws Exception
+    {
+        String search = api.searchcurl(api.get5eEntryPath("spells/"));
+        search.substring(search.substring(indexOf(name)).indexOf("url") + "\"url\": \"".length());
+    }*/
+
+
+
+
     public spell(String name, boolean isAttack, int range, int level, int casttime, int duration, String desc,
             String damageFormula, String damageType, String additionalLevelIncrease) {
         this(name, isAttack, range, level, casttime, duration, desc, damageFormula, damageType);

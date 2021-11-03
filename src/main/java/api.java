@@ -21,7 +21,7 @@ public class api {
     //
     public static String get5eEntryPath(String searchterm) throws Exception
     {
-        return searchcurl("https://www.dnd5eapi.co/api/" + searchterm);
+        return searchcurl("https://www.dnd5eapi.co" + searchterm);
     }
 
     public static Object jsonToObj(String json, Type t)
