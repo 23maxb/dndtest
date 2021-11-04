@@ -1,9 +1,11 @@
-import com.google.gson.Gson;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.lang.reflect.Type;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 public class api {
     public static String searchcurl(String urltocurl) throws Exception {
@@ -17,15 +19,23 @@ public class api {
         return toReturn;
     }
 
-    //https://www.dnd5eapi.co/docs/
-    //
-    public static String get5eEntryPath(String searchterm) throws Exception
-    {
-        return searchcurl("https://www.dnd5eapi.co" + searchterm);
+    public static Map<String, String> jsonToMap(@NotNull String JSON_SOURCE) throws Exception {
+        Map<String, String> result =
+                new ObjectMapper().readValue(JSON_SOURCE, HashMap.class);
+        return result;
     }
 
-    public static Object jsonToObj(String json, Type t)
-    {
-        return (new Gson()).fromJson(json, t);
+    public static Map<String, String> get5eEntryPath(String @NotNull ... args) throws Exception {
+        String path = "/api/";
+        for (int i = 0; i < args.length; i++) {
+            path += args + "/";
+        }
+        return jsonToMap(searchcurl("https://www.dnd5eapi.co" + path));
+    }
+
+    public static String getValueOfItem(String @NotNull ... args) throws Exception{
+        String[] a = new String[args.length - 1];
+        System.arraycopy(args, 0, a, 0, a.length);
+        return get5eEntryPath(a).get(args[args.length-1]);
     }
 }

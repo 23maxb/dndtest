@@ -29,5 +29,15 @@
     <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-client:9.4.31.v20200723" level="project" />
     <orderEntry type="library" name="Maven: org.eclipse.jetty.websocket:websocket-servlet:9.4.31.v20200723" level="project" />
     <orderEntry type="library" name="Maven: org.eclipse.jetty.websocket:websocket-api:9.4.31.v20200723" level="project" />
+    <orderEntry type="library" name="Maven: org.jetbrains:annotations:22.0.0" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.13.0" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.13.0" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-core:2.13.0" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml:jackson-xml-databind:0.6.2" level="project" />
+    <orderEntry type="library" name="Maven: org.codehaus.jackson:jackson-mapper-asl:1.9.2" level="project" />
+    <orderEntry type="library" name="Maven: org.codehaus.jackson:jackson-core-asl:1.9.2" level="project" />
+    <orderEntry type="library" name="Maven: org.codehaus.jackson:jackson-xc:1.9.2" level="project" />
+    <orderEntry type="library" name="Maven: org.codehaus.woodstox:stax2-api:3.1.0" level="project" />
+    <orderEntry type="library" name="Maven: javax.xml.stream:stax-api:1.0-2" level="project" />
   </component>
 </module>
