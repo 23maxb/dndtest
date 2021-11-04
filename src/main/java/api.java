@@ -26,9 +26,9 @@ public class api {
     }
 
     public static Map<String, String> get5eEntryPath(String @NotNull ... args) throws Exception {
-        String path = "/api/";
-        for (int i = 0; i < args.length; i++) {
-            path += args + "/";
+        StringBuilder path = new StringBuilder("/api/");
+        for (String arg : args) {
+            path.append(arg).append("/");
         }
         System.out.println("https://www.dnd5eapi.co" + path);
         return jsonToMap(searchcurl("https://www.dnd5eapi.co" + path));
