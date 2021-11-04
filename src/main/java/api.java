@@ -4,8 +4,10 @@ import org.jetbrains.annotations.NotNull;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class api {
     public static String searchcurl(String urltocurl) throws Exception {
@@ -26,10 +28,7 @@ public class api {
     }
 
     public static Map<String, String> get5eEntryPath(String @NotNull ... args) throws Exception {
-        StringBuilder path = new StringBuilder("/api/");
-        for (String arg : args) {
-            path.append(arg).append("/");
-        }
+        String path = Arrays.stream(args).map(arg -> arg + "/").collect(Collectors.joining("", "/api/", ""));
         System.out.println("https://www.dnd5eapi.co" + path);
         return jsonToMap(searchcurl("https://www.dnd5eapi.co" + path));
     }
@@ -37,7 +36,6 @@ public class api {
     public static String getValueOfItem(String @NotNull ... args) throws Exception {
         String[] a = new String[args.length - 1];
         System.arraycopy(args, 0, a, 0, a.length);
-//works till here
         return get5eEntryPath(a).get(args[args.length - 1]);
     }
 }
