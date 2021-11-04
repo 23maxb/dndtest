@@ -4,27 +4,24 @@ import org.jetbrains.annotations.NotNull;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 public class api {
-    public static String searchcurl(String urltocurl) throws Exception {
+    public static @NotNull String searchcurl(String urltocurl) throws Exception {
         URL url = new URL(urltocurl);
-        String toReturn = "";
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"))) {
-            for (String line; (line = reader.readLine()) != null; ) {
-                toReturn += "\n" + line;
-            }
+        StringBuilder toReturn = new StringBuilder();
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream(), StandardCharsets.UTF_8))) {
+            for (String line; (line = reader.readLine()) != null; ) toReturn.append("\n").append(line);
         }
-        return toReturn;
+        return toReturn.toString();
     }
 
     public static Map<String, String> jsonToMap(@NotNull String JSON_SOURCE) throws Exception {
-        Map<String, String> result =
-                new ObjectMapper().readValue(JSON_SOURCE, HashMap.class);
-        return result;
+        return (Map<String, String>) (new ObjectMapper().readValue(JSON_SOURCE, HashMap.class));
     }
 
     public static Map<String, String> get5eEntryPath(String @NotNull ... args) throws Exception {
