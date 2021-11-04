@@ -30,12 +30,14 @@ public class api {
         for (int i = 0; i < args.length; i++) {
             path += args + "/";
         }
+        System.out.println("https://www.dnd5eapi.co" + path);
         return jsonToMap(searchcurl("https://www.dnd5eapi.co" + path));
     }
 
-    public static String getValueOfItem(String @NotNull ... args) throws Exception{
+    public static String getValueOfItem(String @NotNull ... args) throws Exception {
         String[] a = new String[args.length - 1];
         System.arraycopy(args, 0, a, 0, a.length);
-        return get5eEntryPath(a).get(args[args.length-1]);
+//works till here
+        return get5eEntryPath(a).get(args[args.length - 1]);
     }
 }
