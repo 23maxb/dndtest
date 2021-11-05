@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 //Use api.getAtribute("catagory", "subcatagory", "subcatagory", "atribute");
 public class api {
@@ -26,16 +27,9 @@ public class api {
         return (Map<String, String>) (new ObjectMapper().readValue(JSON_SOURCE, HashMap.class));
     }
 
-
     public static @NotNull String get5eEntryPath(String @NotNull ... args) throws Exception {
         String path = Arrays.stream(args).map(arg -> arg + "/").collect(Collectors.joining("", "/api/", ""));
         return searchCurl("https://www.dnd5eapi.co" + path);
-    }
-
-    public static Object getValueOfItem(String @NotNull ... args) throws Exception {
-        String[] a = new String[args.length - 1];
-        System.arraycopy(args, 0, a, 0, a.length);
-        return jsonToMap(get5eEntryPath(a)).get(args[args.length - 1]);
     }
 
     public static Map<String, String> getValueOfPath(String @NotNull ... args) throws Exception {
@@ -43,6 +37,10 @@ public class api {
     }
 
     public static Object getAtribute(String @NotNull ... args) throws Exception {
+        if (args.length == 0)
+            return getValueOfPath();
+        //changes all arguments to lower case
+        IntStream.range(0, args.length).forEachOrdered(i1 -> args[i1] = args[i1].toLowerCase());
         Object toReturn = getValueOfPath(args[0]);
         for (int i = 0; i < args.length; i++) {
             assert toReturn != null : "The argument " + args[i - 1] + " was invalid and caused an error.";
@@ -61,6 +59,7 @@ public class api {
                     return toReturn;
             }
         }
+        assert toReturn != null : "The argument " + args[args.length-1] + " was invalid and caused an error.";
         return toReturn;
     }
 
