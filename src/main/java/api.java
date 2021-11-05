@@ -43,13 +43,22 @@ public class api {
     }
 
     public static Object getAtribute(String @NotNull ... args) throws Exception {
-        try {
-            getValueOfItem(args);
-        } catch (Exception ignored) {
-        } finally {
-
-            String[] a = new String[args.length - 1];
+        Object toReturn = getValueOfPath(args[0]);
+        for (int i = 0; i < args.length; i++) {
+            String[] a = new String[i + 1];
             System.arraycopy(args, 0, a, 0, a.length);
+            try {
+                //Comment the following line out in testing
+                getValueOfPath(a);
+                toReturn = getValueOfPath(a);
+            } catch (Exception E) {
+
+                assert (toReturn instanceof Map<?, ?>);
+                toReturn = ((Map<?, ?>) toReturn).get(args[i]);
+                if (toReturn instanceof String && i == args.length-1)
+                    return toReturn;
+            }
+
         }
 
     }

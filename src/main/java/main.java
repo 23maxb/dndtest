@@ -7,7 +7,7 @@ public class main {
         Map<String, String> a = api.jsonToMap(api.searchCurl("https://www.dnd5eapi.co/api/spells/acid-arrow"));*/
         //System.out.println(api.getValueOfItem("monsters", "adult-black-dragon", "type"));
         //System.out.println(api.getValueOfPath("equipment", "spear").get("damage"));
-        System.out.println(api.getValueOfItem("equipment", "spear", "damage", "damage_type"));
+        System.out.println(api.getAtribute( "equipment"));
 
     }
 }
