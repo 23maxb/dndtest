@@ -32,7 +32,7 @@ public class api {
         return searchCurl("https://www.dnd5eapi.co" + path);
     }
 
-    public static String getValueOfItem(String @NotNull ... args) throws Exception {
+    public static Object getValueOfItem(String @NotNull ... args) throws Exception {
         String[] a = new String[args.length - 1];
         System.arraycopy(args, 0, a, 0, a.length);
         return jsonToMap(get5eEntryPath(a)).get(args[args.length - 1]);
@@ -40,6 +40,18 @@ public class api {
 
     public static Map<String, String> getValueOfPath(String @NotNull ... args) throws Exception {
         return jsonToMap(get5eEntryPath(args));
+    }
+
+    public static Object getAtribute(String @NotNull ... args) throws Exception {
+        try {
+            getValueOfItem(args);
+        } catch (Exception ignored) {
+        } finally {
+
+            String[] a = new String[args.length - 1];
+            System.arraycopy(args, 0, a, 0, a.length);
+        }
+
     }
 
 
