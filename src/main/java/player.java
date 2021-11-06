@@ -2,6 +2,7 @@ import java.util.ArrayList;
 
 public class player extends entity {
     public String playerClass;
+    public String playerClassArchetype;
     public int bronzeCoins;
     public ArrayList<item> inventory;
     public int strength;
@@ -17,10 +18,11 @@ public class player extends entity {
     public ArrayList<String> proficiencies;
     public ArrayList<action> possibleActions;
 
-    public player(String cl, int money, ArrayList<item> a, double mH, boolean m, String n, boolean ren, String race,
-                  String raceArchetype) {
-        super(mH, m, n, ren, race);
-        playerClass = cl;
+    public player(String playerClass, int money, ArrayList<item> a, double maxHealth, boolean m, String name, boolean ren, String race,
+                  String raceArchetype, String classArchetype) {
+        super(maxHealth, m, name, ren, race);
+        this.playerClass = playerClass;
+        playerClassArchetype = classArchetype;
         bronzeCoins = money;
         inventory = a;
         speed = 30;
