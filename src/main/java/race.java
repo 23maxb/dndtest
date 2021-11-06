@@ -1,69 +1,42 @@
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
+import java.util.Map;
 
 public class race {
 
     // valid races: dragonborn, dwarf, elf, gnome, half-elf, halfling, half-orc,
     // human, tiefling
-    public static ArrayList<String> getBonuses(String race, String raceArchetype) {
+    public static @NotNull ArrayList<String> getBonuses(@NotNull String race, @NotNull String raceArchetype) throws Exception {
         ArrayList<String> a = new ArrayList<String>();
-        switch (race) {
-            case ("dragonborn"):
-                a.add("size:medium");
-                a.add("speed:30");
-                switch (raceArchetype) {
-                    case ("black"):
-                        a.add("resistance:acid");
-                        a.add("equipment:equipable(\"dragonBornBreathWeaponAcid\", false, 0, 1, -1, null, new spell(\"dragonBornBreathWeaponAcid\", true, 30, 0, ), null, false, false, \"shortrest\")");
-                    case ("blue"):
-                    case ("brass"):
-                    case ("bronze"):
-                    case ("copper"):
-                    case ("gold"):
-                    case ("green"):
-                    case ("red"):
-                    case ("silver"):
-                    case ("white"):
-                }
-                break;
-            case ("dwarf"):
-                a.add("size:medium");
-                a.add("speed:25");
-                break;
-            case ("elf"):
-                a.add("size:medium");
-                a.add("speed:30");
-                break;
-            case ("gnome"):
-                a.add("size:small");
-                a.add("speed:25");
-                break;
-            case ("half-elf"):
-                a.add("size:medium");
-                a.add("speed:30");
-                break;
-            case ("halfling"):
-                a.add("size:small");
-                a.add("speed:25");
-                break;
-            case ("half-orc"):
-                a.add("size:medium");
-                a.add("speed:30");
-                break;
-            case ("human"):
-                a.add("size:medium");
-                a.add("speed:30");
-                break;
-            case ("tiefling"):
-                a.add("size:medium");
-                a.add("speed:30");
-                break;
-        }
-        return a;
+        Map<String, Object> raceInformation = (Map<String, Object>) (api.getAtribute("races", race));
+        //subrace
+        if (raceArchetype.compareTo("default") != 0)
+            raceInformation.put("archetype", (api.getAtribute("subraces", raceArchetype)));
+        //speed
+        a.add("speed:" + raceInformation.get("speed"));
+        //ability bonuses
+        for (int i = 0; i < ((ArrayList<?>) raceInformation.get("ability_bonuses")).size(); i++)
+            a.add(((Map) ((Map) ((ArrayList<?>) raceInformation.get("ability_bonuses")).get(i)).get("ability_score")).get("index") + ":+" + ((Map) ((ArrayList<?>) raceInformation.get("ability_bonuses")).get(i)).get("bonus"));
+        //Archetype ability bonuses
+        for (int i = 0; i < ((ArrayList<?>) ((Map) raceInformation.get("archetype")).get("ability_bonuses")).size(); i++)
+            a.add(((Map) ((Map) ((ArrayList<?>) ((Map) raceInformation.get("archetype")).get("ability_bonuses")).get(i)).get("ability_score")).get("index") + ":+" + ((Map) ((ArrayList<?>) ((Map) raceInformation.get("archetype")).get("ability_bonuses")).get(i)).get("bonus"));
+        //size
+        a.add("size:" + ((String) raceInformation.get("size")).toLowerCase());
+        //proficiencies
+        for (int i = 0; i < ((ArrayList<?>) raceInformation.get("starting_proficiencies")).size(); i++)
+            a.add("proficiency:" + ((ArrayList) raceInformation.get("starting_proficiencies")).get(i));
+        //Archetype proficiencies
+        for (int i = 0; i < ((ArrayList<?>) ((Map) raceInformation.get("archetype")).get("starting_proficiencies")).size(); i++)
+            a.add("proficiency:" + ((ArrayList) ((Map) raceInformation.get("archetype")).get("starting_proficiencies")).get(i));
+        //languages
+        //traits
 
+        return a;
     }
 
     // if no archetype is specifically stated use a default racetype
-    public static ArrayList<String> getBonuses(String race) {
+    public static ArrayList<String> getBonuses(String race) throws Exception {
         {
             return getBonuses(race, "default");
         }

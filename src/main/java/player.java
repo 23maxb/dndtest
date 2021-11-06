@@ -19,19 +19,25 @@ public class player extends entity {
     public ArrayList<action> possibleActions;
 
     public player(String playerClass, int money, ArrayList<item> a, double maxHealth, boolean m, String name, boolean ren, String race,
-                  String raceArchetype, String classArchetype) {
+                  String raceArchetype, String classArchetype) throws Exception {
         super(maxHealth, m, name, ren, race);
         this.playerClass = playerClass;
         playerClassArchetype = classArchetype;
         bronzeCoins = money;
         inventory = a;
         speed = 30;
-        speedBonus = "Base: 30ft";// needstobeupdated
+        speedBonus = (String) (api.getAtribute("races", this.race, "speed"));
+        calculateStats();
         // addBonuses(race.getBonuses(race, raceArchetype));//ask saahil
     }
 
-    public player(String cl, int money, ArrayList<item> a, double mH, boolean m, String n, boolean ren, String race) {
-        this(cl, money, a, mH, m, n, ren, race, "default");
+    public void calculateStats()
+    {
+
+    }
+
+    public player(String cl, int money, ArrayList<item> a, double mH, boolean m, String n, boolean ren, String race) throws Exception {
+        this(cl, money, a, mH, m, n, ren, race, "default", "default");
     }
 
     public String getPlayerClass() {
