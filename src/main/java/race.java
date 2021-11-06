@@ -30,8 +30,26 @@ public class race {
         for (int i = 0; i < ((ArrayList<?>) ((Map) raceInformation.get("archetype")).get("starting_proficiencies")).size(); i++)
             a.add("proficiency:" + ((ArrayList) ((Map) raceInformation.get("archetype")).get("starting_proficiencies")).get(i));
         //languages
-        //traits
+        for (int i = 0; i < ((ArrayList<?>) raceInformation.get("languages")).size(); i++)
+            a.add("language:" + ((ArrayList) raceInformation.get("languages")).get(i));
+        for (int i = 0; i < ((ArrayList<?>) ((Map) raceInformation.get("archetype")).get("languages")).size(); i++)
+            a.add("language:" + ((ArrayList) ((Map) raceInformation.get("archetype")).get("languages")).get(i));
 
+        //language options
+        //EDIT HERE IN ORDER TO CHANGE HOW LANGUAGES ARE CHOSEN
+        //tests whether any language options are available
+        int size = -1;
+        boolean hasOptionalLanguages = true;
+        try {
+            size = ((ArrayList) ((Map) raceInformation.get("language_options")).get("from")).size();
+            if (size == 0)
+                hasOptionalLanguages = false;
+        } catch (Exception ignored) {
+            hasOptionalLanguages = false;
+        }
+        for (int i = 0; hasOptionalLanguages && i < size; i++)
+            a.add("proficiency:" + ((ArrayList) raceInformation.get("language_options")).get(i));
+        //traits
         return a;
     }
 
