@@ -12,6 +12,6 @@ public class main {
         int i = 0;
         System.out.println(((Map) ((Map) ((ArrayList<?>) raceInformation.get("ability_bonuses")).get(i)).get("ability_score")).get("index") + ":+" + ((Map) ((ArrayList<?>) raceInformation.get("ability_bonuses")).get(i)).get("bonus"));
 */
-        race.getBonuses("human");
+        System.out.println(race.getBonuses("human"));
     }
 }
