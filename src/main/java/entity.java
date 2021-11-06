@@ -22,7 +22,7 @@ public class entity extends thing {
     public String size;
     public int speed;
     public String speedBonus;
-    public int exhuastion;
+    public int exhaustion;
     public ArrayList<String> resistances;
     public ArrayList<String> vulnerabilities;
     public ArrayList<String> immunities;
@@ -49,7 +49,7 @@ public class entity extends thing {
         restrained = false;
         stunned = false;
         unconcious = false;
-        exhuastion = 0;
+        exhaustion = 0;
     }
 
     public entity(double mH, boolean m, String n, boolean ren, String r) {
@@ -65,26 +65,19 @@ public class entity extends thing {
         return isDead();
     }
 
-    public boolean takeDamage(double damage, String type)
-    {
-        for(int i = 0; i < resistances.size(); i++)
-        {
-            if(type.compareTo(resistances.get(i)) == 0)
-            {
-                return takeDamage(damage/2);
+    public boolean takeDamage(double damage, String type) {
+        for (String resistance : resistances) {
+            if (type.compareTo(resistance) == 0) {
+                return takeDamage(damage / 2);
             }
         }
-        for(int i = 0; i < vulnerabilities.size(); i++)
-        {
-            if(type.compareTo(vulnerabilities.get(i)) == 0)
-            {
-                return takeDamage(damage/2);
+        for (String vulnerability : vulnerabilities) {
+            if (type.compareTo(vulnerability) == 0) {
+                return takeDamage(damage / 2);
             }
         }
-        for(int i = 0; i < immunities.size(); i++)
-        {
-            if(type.compareTo(immunities.get(i)) == 0)
-            {
+        for (String immunity : immunities) {
+            if (type.compareTo(immunity) == 0) {
                 return isDead();
             }
         }
@@ -219,11 +212,11 @@ public class entity extends thing {
         this.unconcious = unconcious;
     }
 
-    public int getExhuastion() {
-        return exhuastion;
+    public int getExhaustion() {
+        return exhaustion;
     }
 
-    public void setExhuastion(int exhuastion) {
-        this.exhuastion = exhuastion;
+    public void setExhaustion(int exhaustion) {
+        this.exhaustion = exhaustion;
     }
 }
