@@ -1,6 +1,7 @@
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map;
 
 public class race {
@@ -55,8 +56,28 @@ public class race {
             System.out.println("Your race " + race + " has " + size + " optional languages.");
             System.out.println("You may choose " + ((Map) raceInformation.get("language_options")).get("choose") + " of the following.");
         }
-        for (int i = 0; size > 0 && i < size; i++)
+        String[] availableLangs = new String[size];
+        for (int i = 0; size > 0 && i < size; i++) {
             System.out.print("\r\n" + "Option" + (i + 1) + ":" + ((Map) ((ArrayList) ((Map) raceInformation.get("language_options")).get("from")).get(i)).get("name"));
+            availableLangs[i] = ((Map) ((ArrayList) ((Map) raceInformation.get("language_options")).get("from")).get(i)).get("name").toString();
+        }
+        System.out.println();
+
+        for (int i = 0; i < (int) ((Map) raceInformation.get("language_options")).get("choose"); i++) {
+            System.out.println("Please type the language you would like to choose. (" + (i + 1) + "/" +
+                    ((Map) raceInformation.get("language_options")).get("choose") + ")");
+            String chosenLang = userInput.promptUser();
+            boolean valid = false;
+            System.out.println(Arrays.asList(availableLangs));
+            for (String availableLang : availableLangs) {
+                if (chosenLang.compareTo(availableLang) == 0) {
+                    valid = true;
+                    break;
+                }
+            }
+            if (valid)
+                a.add("language:" + chosenLang);
+        }
         //traits
         return a;
     }
