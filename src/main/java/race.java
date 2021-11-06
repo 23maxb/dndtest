@@ -7,6 +7,9 @@ public class race {
 
     // valid races: dragonborn, dwarf, elf, gnome, half-elf, halfling, half-orc,
     // human, tiefling
+
+    @SuppressWarnings({"rawtypes", "unchecked"})//raw types detected since api accession not vewable from this ide
+    //unchecked same
     public static @NotNull ArrayList<String> getBonuses(@NotNull String race, @NotNull String raceArchetype) throws Exception {
         ArrayList<String> a = new ArrayList<String>();
         Map<String, Object> raceInformation = (Map<String, Object>) (api.getAtribute("races", race));
@@ -47,8 +50,13 @@ public class race {
         } catch (Exception ignored) {
             hasOptionalLanguages = false;
         }
-        for (int i = 0; hasOptionalLanguages && i < size; i++)
-            a.add("proficiency:" + ((ArrayList) raceInformation.get("language_options")).get(i));
+
+        if (size > 0) {
+            System.out.println("Your race " + race + " has " + size + " optional languages.");
+            System.out.println("You may choose " + ((Map) raceInformation.get("language_options")).get("choose") + " of the following.");
+        }
+        for (int i = 0; size > 0 && i < size; i++)
+            System.out.print("Option" + i + ":" + ((ArrayList) raceInformation.get("language_options")).get(i));
         //traits
         return a;
     }
