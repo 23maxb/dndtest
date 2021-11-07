@@ -1,3 +1,5 @@
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 
 public class Player extends Entity {
@@ -41,7 +43,7 @@ public class Player extends Entity {
         }
     }
 
-    public void interpretBonus(String bonus) {
+    public void interpretBonus(@NotNull String bonus) {
         if (bonus.contains("speed")) {
             super.speed = Integer.parseInt(bonus.substring(bonus.indexOf(":") + 1));
             super.speedBonus.add("defaultRaceSpeed:" + super.speed);
