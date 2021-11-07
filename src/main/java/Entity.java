@@ -22,7 +22,7 @@ public class Entity extends thing {
     public String raceArchetype;
     public String size;
     public int speed;
-    public String speedBonus;
+    public ArrayList<String> speedBonus;
     public int exhaustion;
     public ArrayList<String> resistances;
     public ArrayList<String> vulnerabilities;
@@ -66,8 +66,8 @@ public class Entity extends thing {
         return isDead();
     }
 
-    public void calculateStats() throws Exception {
-        Race.getBonuses(race, raceArchetype);
+    public ArrayList<String> calculateBonuses() throws Exception {
+        return Race.getBonuses(race, raceArchetype);
     }
 
     public boolean takeDamage(double damage, String type) {

@@ -126,7 +126,7 @@ public class DiceRoller {
             // | number | functionName factor | factor `^` factor
             double parseExpression() {
                 double x = parseTerm();
-                for (;;) {
+                for (; ; ) {
                     if (eat('+'))
                         x += parseTerm(); // addition
                     else if (eat('-'))
@@ -138,7 +138,7 @@ public class DiceRoller {
 
             double parseTerm() {
                 double x = parseFactor();
-                for (;;) {
+                for (; ; ) {
                     if (eat('*'))
                         x *= parseFactor(); // multiplication
                     else if (eat('/'))

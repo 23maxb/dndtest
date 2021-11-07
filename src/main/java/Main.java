@@ -13,5 +13,7 @@ public class Main {
         System.out.println(((Map) ((Map) ((ArrayList<?>) raceInformation.get("ability_bonuses")).get(i)).get("ability_score")).get("index") + ":+" + ((Map) ((ArrayList<?>) raceInformation.get("ability_bonuses")).get(i)).get("bonus"));
 */
         System.out.println(Race.getBonuses("dwarf"));
+        String bonus = "stat:con:+1";
+        System.out.println((bonus.substring(bonus.indexOf(":") + 1, bonus.lastIndexOf(":"))));
     }
 }

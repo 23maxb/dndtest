@@ -21,10 +21,10 @@ public class Race {
         a.add("speed:" + raceInformation.get("speed"));
         //ability bonuses
         for (int i = 0; i < ((ArrayList<?>) raceInformation.get("ability_bonuses")).size(); i++)
-            a.add(((Map) ((Map) ((ArrayList<?>) raceInformation.get("ability_bonuses")).get(i)).get("ability_score")).get("index") + ":+" + ((Map) ((ArrayList<?>) raceInformation.get("ability_bonuses")).get(i)).get("bonus"));
+            a.add("stat:" + ((Map) ((Map) ((ArrayList<?>) raceInformation.get("ability_bonuses")).get(i)).get("ability_score")).get("index") + ":+" + ((Map) ((ArrayList<?>) raceInformation.get("ability_bonuses")).get(i)).get("bonus"));
         //Archetype ability bonuses
         for (int i = 0; raceArchetype.compareTo("default") != 0 && i < ((ArrayList<?>) ((Map) raceInformation.get("archetype")).get("ability_bonuses")).size(); i++)
-            a.add(((Map) ((Map) ((ArrayList<?>) ((Map) raceInformation.get("archetype")).get("ability_bonuses")).get(i)).get("ability_score")).get("index") + ":+" + ((Map) ((ArrayList<?>) ((Map) raceInformation.get("archetype")).get("ability_bonuses")).get(i)).get("bonus"));
+            a.add("stat:" + ((Map) ((Map) ((ArrayList<?>) ((Map) raceInformation.get("archetype")).get("ability_bonuses")).get(i)).get("ability_score")).get("index") + ":+" + ((Map) ((ArrayList<?>) ((Map) raceInformation.get("archetype")).get("ability_bonuses")).get(i)).get("bonus"));
         //size
         a.add("size:" + ((String) raceInformation.get("size")).toLowerCase());
         //proficiencies

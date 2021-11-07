@@ -31,10 +31,27 @@ public class Player extends Entity {
         playerClassArchetype = classArchetype;
         bronzeCoins = money;
         inventory = a;
-        speed = 30;
-        speedBonus = (String) (api.getAtribute("races", this.race, "speed"));
-        super.calculateStats();
+        calculateStats();
         // addBonuses(race.getBonuses(race, raceArchetype));//ask saahil
+    }
+
+    public void calculateStats() throws Exception {
+        for (String bonus : super.calculateBonuses()) {
+            //interpretBonus(bonus);
+        }
+    }
+
+    public void interpretBonus(String bonus) {
+        if (bonus.contains("speed")) {
+            super.speed = Integer.parseInt(bonus.substring(bonus.indexOf(":") + 1));
+            super.speedBonus.add("defaultRaceSpeed:" + super.speed);
+        } else if (bonus.contains("stat:")) {
+            String statToInc = (bonus.substring(bonus.indexOf(":") + 1, bonus.lastIndexOf(":")));
+
+        } else if (bonus.contains("stat:")) {
+            System.out.println("a");
+        }
+
     }
 
     public Player(String cl, int money, ArrayList<item> a, double mH, boolean m, String n, boolean ren, String race) throws Exception {

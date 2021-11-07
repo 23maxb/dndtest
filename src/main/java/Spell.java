@@ -24,7 +24,6 @@ public class Spell extends Action {
         this.damageType = damageType;
     }
 
-
     public Spell(String name, boolean isAttack, int range, int level, int casttime, int duration, String desc,
                  String damageFormula, String damageType, String additionalLevelIncrease) {
         this(name, isAttack, range, level, casttime, duration, desc, damageFormula, damageType);
