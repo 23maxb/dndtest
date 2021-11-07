@@ -1,4 +1,4 @@
-public class spell extends action {
+public class Spell extends Action {
     public int level;
     public int casttime;
     public int range;
@@ -12,8 +12,8 @@ public class spell extends action {
     // IF THE SAVING THROW IS SUCCESSFUL
     // should be *0.5 if the damage is halved on success
 
-    public spell(String name, boolean isAttack, int range, int level, int casttime, int duration, String desc,
-            String damageFormula, String damageType) {
+    public Spell(String name, boolean isAttack, int range, int level, int casttime, int duration, String desc,
+                 String damageFormula, String damageType) {
         super(name, isAttack);
         this.level = level;
         this.casttime = casttime;
@@ -24,24 +24,16 @@ public class spell extends action {
         this.damageType = damageType;
     }
 
-    /*public spell(String name) throws Exception
-    {
-        String search = api.searchcurl(api.get5eEntryPath("spells/"));
-        search.substring(search.substring(indexOf(name)).indexOf("url") + "\"url\": \"".length());
-    }*/
 
-
-
-
-    public spell(String name, boolean isAttack, int range, int level, int casttime, int duration, String desc,
-            String damageFormula, String damageType, String additionalLevelIncrease) {
+    public Spell(String name, boolean isAttack, int range, int level, int casttime, int duration, String desc,
+                 String damageFormula, String damageType, String additionalLevelIncrease) {
         this(name, isAttack, range, level, casttime, duration, desc, damageFormula, damageType);
         this.additionalLevelIncrease = additionalLevelIncrease;
     }
 
-    public spell(String name, boolean isAttack, int range, int level, int casttime, int duration, String desc,
-            String damageFormula, String damageType, String additionalLevelIncrease, String savingThrowType,
-            String savingThrowModifier) {
+    public Spell(String name, boolean isAttack, int range, int level, int casttime, int duration, String desc,
+                 String damageFormula, String damageType, String additionalLevelIncrease, String savingThrowType,
+                 String savingThrowModifier) {
         this(name, isAttack, range, level, casttime, duration, desc, damageFormula, damageType);
         this.additionalLevelIncrease = additionalLevelIncrease;
         this.savingThrowModifier = savingThrowModifier;
@@ -57,19 +49,19 @@ public class spell extends action {
 
     }
 
-    public boolean cast(int spellSlotLevel, entity target, player caster) throws Exception {
-        if (savingThrowType == null || !(target instanceof player)) {
-            return target.takeDamage(diceRoller.multiIntRoll(damageAtLevel(spellSlotLevel)), damageType);
+    public boolean cast(int spellSlotLevel, Entity target, Player caster) throws Exception {
+        if (savingThrowType == null || !(target instanceof Player)) {
+            return target.takeDamage(DiceRoller.multiIntRoll(damageAtLevel(spellSlotLevel)), damageType);
         }
-        if (((player) target).savingThrow(savingThrowType) > calculateSpellSaveDC(caster))
+        if (((Player) target).savingThrow(savingThrowType) > calculateSpellSaveDC(caster))
             return target.takeDamage(
-                    diceRoller.multiIntRoll("(" + damageAtLevel(spellSlotLevel) + ")" + savingThrowModifier),
+                    DiceRoller.multiIntRoll("(" + damageAtLevel(spellSlotLevel) + ")" + savingThrowModifier),
                     damageType);
-        return target.takeDamage(diceRoller.multiIntRoll("(" + damageAtLevel(spellSlotLevel) + ")"), damageType);
+        return target.takeDamage(DiceRoller.multiIntRoll("(" + damageAtLevel(spellSlotLevel) + ")"), damageType);
 
     }
 
-    public int calculateSpellSaveDC(player caster) throws Exception {
+    public int calculateSpellSaveDC(Player caster) throws Exception {
         if (caster.getPlayerClass().compareTo("bard") == 0 || caster.getPlayerClass().compareTo("paladin") == 0
                 || caster.getPlayerClass().compareTo("sorcerer") == 0
                 || caster.getPlayerClass().compareTo("warlock") == 0) {

@@ -1,24 +1,30 @@
 import java.util.ArrayList;
 
-public class player extends entity {
+public class Player extends Entity {
     public String playerClass;
     public String playerClassArchetype;
     public int bronzeCoins;
     public ArrayList<item> inventory;
     public int strength;
+    public ArrayList<String> bonusSourceStrength;
     public int dexterity;
+    public ArrayList<String> bonusSourceDexterity;
     public int constitution;
+    public ArrayList<String> bonusSourceConstitution;
     public int intelligence;
+    public ArrayList<String> bonusSourceIntelligence;
     public int wisdom;
+    public ArrayList<String> bonusSourceWisdom;
     public int charisma;
+    public ArrayList<String> bonusSourceCharisma;
     public int proficiencyBonus;
     public int initiative;
     public int carryingCapacity;
-    public String carryingCapacityBonus;
+    public ArrayList<String> carryingCapacityBonus;
     public ArrayList<String> proficiencies;
-    public ArrayList<action> possibleActions;
+    public ArrayList<Action> possibleActions;
 
-    public player(String playerClass, int money, ArrayList<item> a, double maxHealth, boolean m, String name, boolean ren, String race,
+    public Player(String playerClass, int money, ArrayList<item> a, double maxHealth, boolean m, String name, boolean ren, String race,
                   String raceArchetype, String classArchetype) throws Exception {
         super(maxHealth, m, name, ren, race);
         this.playerClass = playerClass;
@@ -27,16 +33,11 @@ public class player extends entity {
         inventory = a;
         speed = 30;
         speedBonus = (String) (api.getAtribute("races", this.race, "speed"));
-        calculateStats();
+        super.calculateStats();
         // addBonuses(race.getBonuses(race, raceArchetype));//ask saahil
     }
 
-    public void calculateStats()
-    {
-
-    }
-
-    public player(String cl, int money, ArrayList<item> a, double mH, boolean m, String n, boolean ren, String race) throws Exception {
+    public Player(String cl, int money, ArrayList<item> a, double mH, boolean m, String n, boolean ren, String race) throws Exception {
         this(cl, money, a, mH, m, n, ren, race, "default", "default");
     }
 
@@ -136,12 +137,12 @@ public class player extends entity {
         this.carryingCapacity = carryingCapacity;
     }
 
-    public String getCarryingCapacityBonus() {
+    public ArrayList<String> getCarryingCapacityBonus() {
         return carryingCapacityBonus;
     }
 
-    public void setCarryingCapacityBonus(String carryingCapacityBonus) {
-        this.carryingCapacityBonus = carryingCapacityBonus;
+    public void addCarryingCapacityBonus(String carryingCapacityBonus) {
+        this.carryingCapacityBonus.add(carryingCapacityBonus);
     }
 
     public ArrayList<String> getProficiencies() {
@@ -152,11 +153,11 @@ public class player extends entity {
         this.proficiencies = proficiencies;
     }
 
-    public ArrayList<action> getPossibleActions() {
+    public ArrayList<Action> getPossibleActions() {
         return possibleActions;
     }
 
-    public void setPossibleActions(ArrayList<action> possibleActions) {
+    public void setPossibleActions(ArrayList<Action> possibleActions) {
         this.possibleActions = possibleActions;
     }
 
@@ -180,10 +181,10 @@ public class player extends entity {
     public int savingThrow(String throwType) throws Exception {
         for (int i = 0; i < proficiencies.size(); i++) {
             if (proficiencies.get(i).indexOf("savingthrow") != -1 && proficiencies.get(i).indexOf("dex") != -1) {
-                return diceRoller.multiIntRoll("1d20+" + proficiencyBonus + getModifier(throwType));
+                return DiceRoller.multiIntRoll("1d20+" + proficiencyBonus + getModifier(throwType));
             }
         }
-        return diceRoller.multiIntRoll("1d20+" + getModifier(throwType));
+        return DiceRoller.multiIntRoll("1d20+" + getModifier(throwType));
     }
 
     public int getModifier(String type) throws Exception {

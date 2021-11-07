@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
 
-public class main {
+public class Main {
     public static void main(String[] args) throws Exception {
         /*
         String[] a = "str dex con int wis cha".split(" ");
@@ -12,6 +12,6 @@ public class main {
         int i = 0;
         System.out.println(((Map) ((Map) ((ArrayList<?>) raceInformation.get("ability_bonuses")).get(i)).get("ability_score")).get("index") + ":+" + ((Map) ((ArrayList<?>) raceInformation.get("ability_bonuses")).get(i)).get("bonus"));
 */
-        System.out.println(race.getBonuses("human"));
+        System.out.println(Race.getBonuses("dwarf"));
     }
 }

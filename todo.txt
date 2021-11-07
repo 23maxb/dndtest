@@ -1,3 +1,3 @@
-1. fix the item vs equipable passive/active conflicts
+1. fix the item vs Equipable Passive/active conflicts
 2. add dragon born race stuff
-4. get a dnd spell api
+4. get a dnd Spell api

@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class entity extends thing {
+public class Entity extends thing {
     public double health;
     public double maxHealth;
     public boolean mortal;
@@ -19,6 +19,7 @@ public class entity extends thing {
     public boolean stunned;
     public boolean unconcious;
     public String race;
+    public String raceArchetype;
     public String size;
     public int speed;
     public String speedBonus;
@@ -29,7 +30,7 @@ public class entity extends thing {
     public ArrayList<String> languages;
     public String languagesBonus;
 
-    public entity(double mH, String n, boolean ren, String r) {
+    public Entity(double mH, String n, boolean ren, String r) {
         super(n, ren);
         race = r;
         health = mH;
@@ -52,17 +53,21 @@ public class entity extends thing {
         exhaustion = 0;
     }
 
-    public entity(double mH, boolean m, String n, boolean ren, String r) {
+    public Entity(double mH, boolean m, String n, boolean ren, String r) {
         this(mH, n, ren, r);
         mortal = m;
     }
 
-    // returns whether or not the entity took the full damage (died).
+    // returns whether or not the Entity took the full damage (died).
     // returns true if alive
     // dead otherwise
     public boolean takeDamage(double damage) {
         health -= damage;
         return isDead();
+    }
+
+    public void calculateStats() throws Exception {
+        Race.getBonuses(race, raceArchetype);
     }
 
     public boolean takeDamage(double damage, String type) {

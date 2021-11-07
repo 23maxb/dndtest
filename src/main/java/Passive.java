@@ -1,4 +1,4 @@
-public class passive {
+public class Passive {
     public String desc;
     public String name;
     public String statIncrease;
@@ -6,7 +6,7 @@ public class passive {
     //example strength:+5
     //example animalhandling:*2
 
-    public passive(String desc, String name, String statIncrease) {
+    public Passive(String desc, String name, String statIncrease) {
         this.desc = desc;
         this.name = name;
         this.statIncrease = statIncrease;

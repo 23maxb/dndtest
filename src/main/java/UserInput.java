@@ -13,11 +13,10 @@ import java.util.*;
 /**
  * An example showing how to use the RuntimeCompiler utility class
  */
-public class userInput // to run something run runThisCode();
+public class UserInput // to run something run runThisCode();
 {
 
-    public static String promptUser()
-    {
+    public static String promptUser() {
         return (new Scanner(System.in)).nextLine();
     }
 

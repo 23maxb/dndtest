@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
 
-public class race {
+public class Race {
 
     // valid races: dragonborn, dwarf, elf, gnome, half-elf, halfling, half-orc,
     // human, tiefling
@@ -29,10 +29,10 @@ public class race {
         a.add("size:" + ((String) raceInformation.get("size")).toLowerCase());
         //proficiencies
         for (int i = 0; i < ((ArrayList<?>) raceInformation.get("starting_proficiencies")).size(); i++)
-            a.add("proficiency:" + ((ArrayList) raceInformation.get("starting_proficiencies")).get(i));
+            a.add("proficiency:" + ((Map) ((ArrayList) raceInformation.get("starting_proficiencies")).get(i)).get("index"));
         //Archetype proficiencies
         for (int i = 0; raceArchetype.compareTo("default") != 0 && i < ((ArrayList<?>) ((Map) raceInformation.get("archetype")).get("starting_proficiencies")).size(); i++)
-            a.add("proficiency:" + ((ArrayList) ((Map) raceInformation.get("archetype")).get("starting_proficiencies")).get(i));
+            a.add("proficiency:" + ((Map) ((ArrayList) ((Map) raceInformation.get("archetype")).get("starting_proficiencies")).get(i)).get("index"));
         //languages
         for (int i = 0; i < ((ArrayList<?>) raceInformation.get("languages")).size(); i++)
             a.add("language:" + ((Map) ((ArrayList) raceInformation.get("languages")).get(i)).get("index"));
@@ -51,34 +51,38 @@ public class race {
         } catch (Exception ignored) {
             hasOptionalLanguages = false;
         }
-
-        if (size > 0) {
+        if (hasOptionalLanguages) {
+            String[] availableLangs = new String[size];
+            for (int i = 0; i < size; i++)
+                availableLangs[i] = ((Map) ((ArrayList) ((Map) raceInformation.get("language_options")).get("from")).get(i)).get("name").toString();
             System.out.println("Your race " + race + " has " + size + " optional languages.");
-            System.out.println("You may choose " + ((Map) raceInformation.get("language_options")).get("choose") + " of the following.");
-        }
-        String[] availableLangs = new String[size];
-        for (int i = 0; size > 0 && i < size; i++) {
-            System.out.print("\r\n" + "Option" + (i + 1) + ":" + ((Map) ((ArrayList) ((Map) raceInformation.get("language_options")).get("from")).get(i)).get("name"));
-            availableLangs[i] = ((Map) ((ArrayList) ((Map) raceInformation.get("language_options")).get("from")).get(i)).get("name").toString();
-        }
-        System.out.println();
-
-        for (int i = 0; i < (int) ((Map) raceInformation.get("language_options")).get("choose"); i++) {
-            System.out.println("Please type the language you would like to choose. (" + (i + 1) + "/" +
-                    ((Map) raceInformation.get("language_options")).get("choose") + ")");
-            String chosenLang = userInput.promptUser();
-            boolean valid = false;
-            System.out.println(Arrays.asList(availableLangs));
-            for (String availableLang : availableLangs) {
-                if (chosenLang.compareTo(availableLang) == 0) {
-                    valid = true;
-                    break;
+            for (int i = 0; i < (int) ((Map) raceInformation.get("language_options")).get("choose"); i++) {
+                System.out.println("You may choose " + ((Map) raceInformation.get("language_options")).get("choose") + " of the following.");
+                System.out.println(Arrays.asList(availableLangs));
+                System.out.println("Please type the language you would like to choose. (" + (i + 1) + "/" +
+                        ((Map) raceInformation.get("language_options")).get("choose") + ")");
+                String chosenLang = UserInput.promptUser();
+                boolean valid = false;
+                for (String availableLang : availableLangs) {
+                    if (chosenLang.toLowerCase().compareTo(availableLang.toLowerCase()) == 0) {
+                        valid = true;
+                        break;
+                    }
+                }
+                if (valid)
+                    a.add("language:" + chosenLang);
+                else {
+                    System.out.println(chosenLang + " was not a valid language choice. Please select a new language.");
+                    i--;
                 }
             }
-            if (valid)
-                a.add("language:" + chosenLang);
         }
         //traits
+        for (int i = 0; i < ((ArrayList<?>) raceInformation.get("traits")).size(); i++)
+            a.add("traits:" + ((Map) ((ArrayList) raceInformation.get("traits")).get(i)).get("index"));
+        //Archetype traits
+        for (int i = 0; raceArchetype.compareTo("default") != 0 && i < ((ArrayList<?>) ((Map) raceInformation.get("archetype")).get("traits")).size(); i++)
+            a.add("traits:" + ((Map) ((ArrayList) ((Map) raceInformation.get("archetype")).get("traits")).get(i)).get("index"));
         return a;
     }
 

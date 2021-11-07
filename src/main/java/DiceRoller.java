@@ -1,7 +1,7 @@
 import java.util.regex.*; // ignore error this is used
 import java.lang.Math;
 
-public class diceRoller {
+public class DiceRoller {
 
     // returns the value of a single roll of a ?d?
     public static int singleRoll(String roll) {

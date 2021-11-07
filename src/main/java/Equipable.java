@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class equipable extends item {
+public class Equipable extends item {
     public ArrayList<String> requiredAppendage;
     public boolean unequipable;
     public boolean tradable;
@@ -9,7 +9,7 @@ public class equipable extends item {
 
     }
 
-    public equipable(String n, boolean ren, double weight, int count, int durability, ArrayList<String> requiredApp, boolean transferable, boolean unequipable) {
+    public Equipable(String n, boolean ren, double weight, int count, int durability, ArrayList<String> requiredApp, boolean transferable, boolean unequipable) {
         super(n, ren, weight, count, durability);
         this.requiredAppendage = requiredApp;
         this.unequipable = unequipable;
