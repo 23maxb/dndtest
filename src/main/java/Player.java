@@ -226,8 +226,8 @@ public class Player extends Entity {
 
     public boolean isEncumbered() {
         int z = 0;
-        for (int i = 0; i < inventory.size(); i++) {
-            z += inventory.get(i).getWeight() * inventory.get(i).getCount();
+        for (item item : inventory) {
+            z += item.getWeight() * item.getCount();
         }
         return z > carryingCapacity;
     }
