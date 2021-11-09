@@ -1,7 +1,6 @@
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
 public class Player extends Entity {
     public String playerClass;
@@ -25,7 +24,7 @@ public class Player extends Entity {
     public int carryingCapacity;
     public ArrayList<String> carryingCapacityBonus;
     public ArrayList<String[]> traits;
-    public ArrayList<String> proficiencies;
+    public ArrayList<String[]> proficiencies;
     public ArrayList<Action> possibleActions;
 
     public Player(String playerClass, int money, ArrayList<item> a, double maxHealth, boolean m, String name, boolean ren, String race,
@@ -53,29 +52,30 @@ public class Player extends Entity {
             super.speed = Integer.parseInt(bonus.substring(bonus.indexOf(":") + 1));
             super.speedBonus.add("defaultRaceSpeed:" + super.speed);
         } else if (bonus.contains("stat:")) {
+            int y = Integer.parseInt(bonus.substring(bonus.lastIndexOf(":") + 1));
             switch (bonus.substring(bonus.indexOf(":") + 1, bonus.lastIndexOf(":")).toLowerCase()) {
                 case "str":
-                    strength += Integer.parseInt(bonus.substring(bonus.lastIndexOf(":") + 1));
+                    this.strength += y;
                     bonusSourceStrength.add(source + ":" + bonus);
                     break;
                 case "dex":
-                    dexterity += Integer.parseInt(bonus.substring(bonus.lastIndexOf(":") + 1));
+                    this.dexterity += y;
                     bonusSourceDexterity.add(source + ":" + bonus);
                     break;
                 case "con":
-                    constitution += Integer.parseInt(bonus.substring(bonus.lastIndexOf(":") + 1));
+                    constitution += y;
                     bonusSourceConstitution.add(source + ":" + bonus);
                     break;
                 case "int":
-                    intelligence += Integer.parseInt(bonus.substring(bonus.lastIndexOf(":") + 1));
+                    intelligence += y;
                     bonusSourceIntelligence.add(source + ":" + bonus);
                     break;
                 case "wis":
-                    wisdom += Integer.parseInt(bonus.substring(bonus.lastIndexOf(":") + 1));
+                    wisdom += y;
                     bonusSourceWisdom.add(source + ":" + bonus);
                     break;
                 case "cha":
-                    charisma += Integer.parseInt(bonus.substring(bonus.lastIndexOf(":") + 1));
+                    charisma += y;
                     bonusSourceCharisma.add(source + ":" + bonus);
                     break;
             }
@@ -86,9 +86,14 @@ public class Player extends Entity {
                 sizeSource = source;
             } else
                 throw new Exception("Size previously declared.");
-        } else if (bonus.contains("traits")) {
+        } else if (bonus.contains("traits"))
             traits.add(new String[]{bonus.substring(bonus.indexOf(":") + 1), source});
-        }
+        else if (bonus.contains("language"))
+            super.languages.add(new String[]{bonus.substring(bonus.indexOf(":") + 1), source});
+        else if (bonus.contains("proficiency"))
+            proficiencies.add(new String[]{bonus.substring(bonus.indexOf(":") + 1), source});
+        else
+            throw new Exception("The bonus indicated " + bonus + "was invalid");
 
     }
 
@@ -200,11 +205,11 @@ public class Player extends Entity {
         this.carryingCapacityBonus.add(carryingCapacityBonus);
     }
 
-    public ArrayList<String> getProficiencies() {
+    public ArrayList<String[]> getProficiencies() {
         return proficiencies;
     }
 
-    public void setProficiencies(ArrayList<String> proficiencies) {
+    public void setProficiencies(ArrayList<String[]> proficiencies) {
         this.proficiencies = proficiencies;
     }
 
@@ -234,8 +239,8 @@ public class Player extends Entity {
     }
 
     public int savingThrow(String throwType) throws Exception {
-        for (String proficiency : proficiencies) {
-            if (proficiency.contains("savingthrow") && proficiency.contains("dex")) {
+        for (String[] proficiency : proficiencies) {
+            if (proficiency[0].contains("savingthrow") && proficiency[0].contains("dex")) {
                 return DiceRoller.multiIntRoll("1d20+" + proficiencyBonus + getModifier(throwType));
             }
         }

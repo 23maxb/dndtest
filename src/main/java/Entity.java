@@ -35,7 +35,7 @@ public class Entity extends thing {
         this.race = race;
     }
 
-    public boolean unconcious;
+    public boolean unconscious;
     public String race;
     public String raceArchetype;
     public String size;
@@ -46,10 +46,9 @@ public class Entity extends thing {
     public ArrayList<String> resistances;
     public ArrayList<String> vulnerabilities;
     public ArrayList<String> immunities;
-    public ArrayList<String> languages;
-    public String languagesBonus;
+    public ArrayList<String[]> languages;
 
-    public Entity(double mH, String n, boolean ren, String r) {
+    public Entity(double mH, String n, boolean ren, String r, String raceArchetype) {
         super(n, ren);
         race = r;
         health = mH;
@@ -68,12 +67,13 @@ public class Entity extends thing {
         prone = false;
         restrained = false;
         stunned = false;
-        unconcious = false;
+        unconscious = false;
         exhaustion = 0;
+        this.raceArchetype = raceArchetype;
     }
 
-    public Entity(double mH, boolean m, String n, boolean ren, String r) {
-        this(mH, n, ren, r);
+    public Entity(double mH, boolean m, String n, boolean ren, String r, String raceArchetype) {
+        this(mH, n, ren, r, raceArchetype);
         mortal = m;
     }
 
@@ -228,12 +228,12 @@ public class Entity extends thing {
         this.stunned = stunned;
     }
 
-    public boolean isUnconcious() {
-        return unconcious;
+    public boolean isUnconscious() {
+        return unconscious;
     }
 
-    public void setUnconcious(boolean unconcious) {
-        this.unconcious = unconcious;
+    public void setUnconscious(boolean unconscious) {
+        this.unconscious = unconscious;
     }
 
     public int getExhaustion() {
