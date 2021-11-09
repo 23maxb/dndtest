@@ -36,7 +36,8 @@ public class Player extends Entity {
         bronzeCoins = money;
         inventory = a;
         calculateStats();
-        // addBonuses(race.getBonuses(race, raceArchetype));//ask saahil
+        // addBonuses(race.getBonuses(race, raceArchetype));
+        // TODO ask saahil
     }
 
     public void calculateStats() throws Exception {
@@ -44,7 +45,7 @@ public class Player extends Entity {
         for (String bonus : super.calculateBonuses()) {
             interpretBonus(bonus, "race." + super.getRace() + "." + super.getRaceArchetype());
         }
-        //class calculated bonus
+        //TODO class calculated bonus
     }
 
     public void interpretBonus(@NotNull String bonus, String source) throws Exception {
@@ -216,7 +217,7 @@ public class Player extends Entity {
     }
 
     public void addBonuses(ArrayList<String> a) {
-        return; //fix here
+        return; //TODO fix here
 
     }
 
@@ -241,7 +242,7 @@ public class Player extends Entity {
         return DiceRoller.multiIntRoll("1d20+" + getModifier(throwType));
     }
 
-    public int getModifier(String type) throws Exception {
+    public int getModifier(@NotNull String type) throws Exception {
         int statToCheck = -1;
         switch (type) {
             case "str":
