@@ -1,6 +1,7 @@
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class Player extends Entity {
     public String playerClass;
@@ -48,7 +49,22 @@ public class Player extends Entity {
             super.speed = Integer.parseInt(bonus.substring(bonus.indexOf(":") + 1));
             super.speedBonus.add("defaultRaceSpeed:" + super.speed);
         } else if (bonus.contains("stat:")) {
-            String statToInc = (bonus.substring(bonus.indexOf(":") + 1, bonus.lastIndexOf(":")));
+            switch (bonus.substring(bonus.indexOf(":") + 1, bonus.lastIndexOf(":")).toLowerCase()) {
+                case "str":
+                    strength =
+                    break;
+                case "dex":
+                    break;
+                case "con":
+                    break;
+                case "int":
+                    break;
+                case "wis":
+                    break;
+                case "cha":
+                    break;
+
+            }
 
         } else if (bonus.contains("stat:")) {
             System.out.println("a");
@@ -198,8 +214,8 @@ public class Player extends Entity {
     }
 
     public int savingThrow(String throwType) throws Exception {
-        for (int i = 0; i < proficiencies.size(); i++) {
-            if (proficiencies.get(i).indexOf("savingthrow") != -1 && proficiencies.get(i).indexOf("dex") != -1) {
+        for (String proficiency : proficiencies) {
+            if (proficiency.contains("savingthrow") && proficiency.contains("dex")) {
                 return DiceRoller.multiIntRoll("1d20+" + proficiencyBonus + getModifier(throwType));
             }
         }
@@ -213,19 +229,19 @@ public class Player extends Entity {
                 statToCheck = strength;
                 break;
             case "dex":
-                statToCheck = strength;
+                statToCheck = dexterity;
                 break;
             case "con":
-                statToCheck = strength;
+                statToCheck = constitution;
                 break;
             case "int":
-                statToCheck = strength;
+                statToCheck = intelligence;
                 break;
             case "wis":
-                statToCheck = strength;
+                statToCheck = wisdom;
                 break;
             case "cha":
-                statToCheck = strength;
+                statToCheck = charisma;
                 break;
         }
         if (statToCheck == -1)
@@ -262,6 +278,8 @@ public class Player extends Entity {
         if (statToCheck <= 29)
             return 9;
         return 10;
+
+
     }
 
 }
