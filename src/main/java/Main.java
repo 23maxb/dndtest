@@ -4,7 +4,7 @@ import java.util.Map;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        /*
+
         String[] a = "str dex con int wis cha".split(" ");
         System.out.println(new ArrayList<>(Arrays.asList(a)));
         Map<String, Object> raceInformation = (Map<String, Object>) (api.getAtribute("races", "human"));
@@ -14,11 +14,8 @@ public class Main {
 
         System.out.println(Race.getBonuses("dwarf"));
         String bonus = "stat:con:+1";
-        System.out.println((bonus.substring(bonus.indexOf(":") + 1, bonus.lastIndexOf(":"))));*/
-        String bonus = "stat:dex:+2";
-        if (bonus.contains("stat:")) {
-            String statToInc = (bonus.substring(bonus.indexOf(":") + 1, bonus.lastIndexOf(":")));
-            System.out.println(statToInc);
-        }
+        System.out.println((bonus.substring(bonus.indexOf(":") + 1, bonus.lastIndexOf(":"))));
+        System.out.println(bonus.substring(bonus.lastIndexOf(":") + 1));
+        System.out.println(5 + Integer.parseInt("+2"));
     }
 }

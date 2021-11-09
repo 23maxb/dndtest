@@ -4,6 +4,15 @@ public class Entity extends thing {
     public double health;
     public double maxHealth;
     public boolean mortal;
+
+    public String getRaceArchetype() {
+        return raceArchetype;
+    }
+
+    public void setRaceArchetype(String raceArchetype) {
+        this.raceArchetype = raceArchetype;
+    }
+
     public boolean blinded;
     public boolean charmed;
     public boolean deafened;
@@ -17,10 +26,20 @@ public class Entity extends thing {
     public boolean prone;
     public boolean restrained;
     public boolean stunned;
+
+    public String getRace() {
+        return race;
+    }
+
+    public void setRace(String race) {
+        this.race = race;
+    }
+
     public boolean unconcious;
     public String race;
     public String raceArchetype;
     public String size;
+    public String sizeSource;
     public int speed;
     public ArrayList<String> speedBonus;
     public int exhaustion;

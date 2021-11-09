@@ -24,6 +24,7 @@ public class Player extends Entity {
     public int initiative;
     public int carryingCapacity;
     public ArrayList<String> carryingCapacityBonus;
+    public ArrayList<String[]> traits;
     public ArrayList<String> proficiencies;
     public ArrayList<Action> possibleActions;
 
@@ -39,35 +40,53 @@ public class Player extends Entity {
     }
 
     public void calculateStats() throws Exception {
+        //race calculated bonus
         for (String bonus : super.calculateBonuses()) {
-            //interpretBonus(bonus);
+            interpretBonus(bonus, "race." + super.getRace() + "." + super.getRaceArchetype());
         }
+        //class calculated bonus
     }
 
-    public void interpretBonus(@NotNull String bonus) {
+    public void interpretBonus(@NotNull String bonus, String source) throws Exception {
         if (bonus.contains("speed")) {
             super.speed = Integer.parseInt(bonus.substring(bonus.indexOf(":") + 1));
             super.speedBonus.add("defaultRaceSpeed:" + super.speed);
         } else if (bonus.contains("stat:")) {
             switch (bonus.substring(bonus.indexOf(":") + 1, bonus.lastIndexOf(":")).toLowerCase()) {
                 case "str":
-                    strength =
+                    strength += Integer.parseInt(bonus.substring(bonus.lastIndexOf(":") + 1));
+                    bonusSourceStrength.add(source + ":" + bonus);
                     break;
                 case "dex":
+                    dexterity += Integer.parseInt(bonus.substring(bonus.lastIndexOf(":") + 1));
+                    bonusSourceDexterity.add(source + ":" + bonus);
                     break;
                 case "con":
+                    constitution += Integer.parseInt(bonus.substring(bonus.lastIndexOf(":") + 1));
+                    bonusSourceConstitution.add(source + ":" + bonus);
                     break;
                 case "int":
+                    intelligence += Integer.parseInt(bonus.substring(bonus.lastIndexOf(":") + 1));
+                    bonusSourceIntelligence.add(source + ":" + bonus);
                     break;
                 case "wis":
+                    wisdom += Integer.parseInt(bonus.substring(bonus.lastIndexOf(":") + 1));
+                    bonusSourceWisdom.add(source + ":" + bonus);
                     break;
                 case "cha":
+                    charisma += Integer.parseInt(bonus.substring(bonus.lastIndexOf(":") + 1));
+                    bonusSourceCharisma.add(source + ":" + bonus);
                     break;
-
             }
 
-        } else if (bonus.contains("stat:")) {
-            System.out.println("a");
+        } else if (bonus.contains("size:")) {
+            if (size == null) {
+                size = bonus.substring(bonus.indexOf(":") + 1);
+                sizeSource = source;
+            } else
+                throw new Exception("Size previously declared.");
+        } else if (bonus.contains("traits")) {
+            traits.add(new String[]{bonus.substring(bonus.indexOf(":") + 1), source});
         }
 
     }
