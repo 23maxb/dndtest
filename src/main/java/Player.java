@@ -2,8 +2,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
-public class Player extends Entity {
-    public String playerClass;
+public class Player extends Entity {//TODO add multi classing
+    public ArrayList<String> playerClass;
     public String playerClassArchetype;
     public int bronzeCoins;
     public ArrayList<item> inventory;
@@ -29,8 +29,8 @@ public class Player extends Entity {
 
     public Player(String playerClass, int money, ArrayList<item> a, double maxHealth, boolean m, String name, boolean ren, String race,
                   String raceArchetype, String classArchetype) throws Exception {
-        super(maxHealth, m, name, ren, race);
-        this.playerClass = playerClass;
+        super(maxHealth, name, ren, race, raceArchetype);
+        this.playerClass.add(playerClass);
         playerClassArchetype = classArchetype;
         bronzeCoins = money;
         inventory = a;
@@ -101,12 +101,27 @@ public class Player extends Entity {
         this(cl, money, a, mH, m, n, ren, race, "default", "default");
     }
 
-    public String getPlayerClass() {
+    public ArrayList<String> getPlayerClass() {
         return playerClass;
     }
 
-    public void setPlayerClass(String playerClass) {
+    public String getMainPlayerClass() {
+        return playerClass.get(0);
+    }
+
+    public boolean hasClass(String classToCompare) {
+        for (String a : playerClass) {
+            if (a.contains(classToCompare)) return true;
+        }
+        return false;
+    }
+
+    public void setPlayerClass(ArrayList<String> playerClass) {
         this.playerClass = playerClass;
+    }
+
+    public void addPlayerClass(String newClass) {
+        playerClass.add(newClass);
     }
 
     public int getBronzeCoins() {

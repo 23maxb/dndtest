@@ -1,3 +1,5 @@
+import org.jetbrains.annotations.NotNull;
+
 public class Spell extends Action {
     public int level;
     public int casttime;
@@ -60,13 +62,13 @@ public class Spell extends Action {
 
     }
 
-    public int calculateSpellSaveDC(Player caster) throws Exception {
-        if (caster.getPlayerClass().compareTo("bard") == 0 || caster.getPlayerClass().compareTo("paladin") == 0
-                || caster.getPlayerClass().compareTo("sorcerer") == 0
-                || caster.getPlayerClass().compareTo("warlock") == 0) {
+    public int calculateSpellSaveDC(@NotNull Player caster) throws Exception {
+        if (caster.hasClass("bard") || caster.hasClass("paladin")
+                || caster.hasClass("sorcerer")
+                || caster.hasClass("warlock")) {
             return 8 + caster.getProficiencyBonus() + caster.getModifier("cha");
         }
-        if (caster.getPlayerClass().compareTo("cleric") == 0 || caster.getPlayerClass().compareTo("druid") == 0) {
+        if (caster.hasClass("cleric") || caster.hasClass("druid")) {
             return 8 + caster.getProficiencyBonus() + caster.getModifier("wis");
         }
         return 8 + caster.getProficiencyBonus() + caster.getModifier("int");
