@@ -10,7 +10,7 @@ public class Main {
         System.out.println(api.getAtribute("classes", "barbarian", "multi_classing", "prerequisites") instanceof ArrayList);
         System.out.println(((Map) (((ArrayList) (api.getAtribute("classes", classToCheck, "multi_classing", "prerequisites"))).get(0))).get("minimum_score"));
    */
-        String classToCheck = "barbarian";
+        String classToCheck = "fighter";
         System.out.println(Arrays.asList(PlayerClass.getRequirementsForMultiClassing(classToCheck)));
     }
 }

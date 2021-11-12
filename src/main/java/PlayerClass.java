@@ -101,7 +101,9 @@ public class PlayerClass {
             String[] reqs = new String[size + 1];
             reqs[0] = "need:1";
             for (int i = 1; i < size + 1; i++)
-                reqs[i] = ((Map) ((Map) ((ArrayList) api.getAtribute("classes", classToCheck, "multi_classing", "prerequisite_options", "from")).get(i)).get("ability_score")).get("index") + ":" + ((Map) (((ArrayList) api.getAtribute("classes", classToCheck, "multi_classing", "prerequisite_options", "from")).get(i))).get("minimum_score");
+                reqs[i] = ((Map) ((Map) ((ArrayList) api.getAtribute("classes", classToCheck, "multi_classing", "prerequisite_options", "from")).get(i - 1)).get("ability_score")).get("index") +
+                        ":" +
+                        ((Map) (((ArrayList) api.getAtribute("classes", classToCheck, "multi_classing", "prerequisite_options", "from")).get(i - 1))).get("minimum_score");
             return reqs;
         }
     }
