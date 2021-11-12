@@ -41,7 +41,6 @@ public class Player extends Entity {//TODO add multi classing
         hourTickStatuses(1);
     }
 
-    public String playerClassArchetype;
     public int bronzeCoins;
     public ArrayList<item> inventory;
     public int strength;
@@ -67,8 +66,7 @@ public class Player extends Entity {//TODO add multi classing
     public Player(String playerClass, int money, ArrayList<item> a, double maxHealth, boolean m, String name, boolean ren, String race,
                   String raceArchetype, String classArchetype) throws Exception {
         super(maxHealth, name, ren, race, raceArchetype);
-        this.playerClass.add(playerClass);
-        playerClassArchetype = classArchetype;
+        this.playerClass.add(playerClass + "." + classArchetype);
         bronzeCoins = money;
         inventory = a;
         calculateStats();
