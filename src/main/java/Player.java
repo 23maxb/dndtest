@@ -1,9 +1,46 @@
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class Player extends Entity {//TODO add multi classing
     public ArrayList<String> playerClass;
+    public Map<String, Object> classSpecificData;//TODO implement class specific data
+    public ArrayList<StatusEffect> statuses;
+
+    public ArrayList<StatusEffect> getStatuses() {
+        return statuses;
+    }
+
+    public void setStatuses(ArrayList<StatusEffect> statuses) {
+        this.statuses = statuses;
+    }
+
+    public void checkStatuses() {
+        for (StatusEffect a : statuses)
+            a.update();
+    }
+
+    public void turnTickStatuses() {
+        for (StatusEffect a : statuses)
+            a.turnTick();
+    }
+
+    public void turnTickStatuses(int turns) {
+        for (StatusEffect a : statuses)
+            a.turnTick(turns);
+    }
+
+    public void hourTickStatuses(int hours) {
+        for (StatusEffect a : statuses) {
+            a.hourTick(hours);
+        }
+    }
+
+    public void hourTickStatuses() {
+        hourTickStatuses(1);
+    }
+
     public String playerClassArchetype;
     public int bronzeCoins;
     public ArrayList<item> inventory;

@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
@@ -5,17 +6,11 @@ import java.util.Map;
 public class Main {
     public static void main(String[] args) throws Exception {
 
-        String[] a = "str dex con int wis cha".split(" ");
-        System.out.println(new ArrayList<>(Arrays.asList(a)));
-        Map<String, Object> raceInformation = (Map<String, Object>) (api.getAtribute("races", "human"));
-        System.out.println(((ArrayList<?>) raceInformation.get("ability_bonuses")).get(0));
-        int i = 0;
-        System.out.println(((Map) ((Map) ((ArrayList<?>) raceInformation.get("ability_bonuses")).get(i)).get("ability_score")).get("index") + ":+" + ((Map) ((ArrayList<?>) raceInformation.get("ability_bonuses")).get(i)).get("bonus"));
-
-        System.out.println(Race.getBonuses("dwarf"));
-        String bonus = "stat:con:+1";
-        System.out.println((bonus.substring(bonus.indexOf(":") + 1, bonus.lastIndexOf(":"))));
-        System.out.println(bonus.substring(bonus.lastIndexOf(":") + 1));
-        System.out.println(5 + Integer.parseInt("+2"));
+      /*  String classToCheck = "barbarian";
+        System.out.println(api.getAtribute("classes", "barbarian", "multi_classing", "prerequisites") instanceof ArrayList);
+        System.out.println(((Map) (((ArrayList) (api.getAtribute("classes", classToCheck, "multi_classing", "prerequisites"))).get(0))).get("minimum_score"));
+   */
+        String classToCheck = "barbarian";
+        System.out.println(Arrays.asList(PlayerClass.getRequirementsForMultiClassing(classToCheck)));
     }
 }
