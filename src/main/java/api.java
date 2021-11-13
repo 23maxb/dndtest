@@ -35,6 +35,8 @@ public class api {
     public static Map<String, String> getValueOfPath(String @NotNull ... args) throws Exception {
         return jsonToMap(get5eEntryPath(args));
     }
+//TODO fix this so the following line works
+    //api.getAtribute("classes","barbarian","levels")
 
     public static Object getAtribute(String @NotNull ... args) throws Exception {
         if (args.length == 0)
@@ -59,7 +61,7 @@ public class api {
                     return toReturn;
             }
         }
-        assert toReturn != null : "The argument " + args[args.length-1] + " was invalid and caused an error.";
+        assert toReturn != null : "The argument " + args[args.length - 1] + " was invalid and caused an error.";
         return toReturn;
     }
 

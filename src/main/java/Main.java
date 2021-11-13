@@ -6,6 +6,7 @@ import java.util.Map;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        System.out.println(Player.getHitDie(new ArrayList<String>(Collections.singleton("barbarian.gunslinger.5"))));
+        String pClass = "barbarian";
+        System.out.println(api.getAtribute("classes", "barbarian", "levels"));
     }
 }

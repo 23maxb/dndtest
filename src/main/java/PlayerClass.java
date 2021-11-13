@@ -68,8 +68,13 @@ public class PlayerClass {
     public static @NotNull ArrayList<String> getClassBonuses(String pClass, String archetype, int level) throws Exception {
         ArrayList<String> a = new ArrayList<String>();
         Map<String, Object> classInformation = (Map<String, Object>) (api.getAtribute("classes", pClass));
+        Map<String, Object> classLevelInformation = (Map<String, Object>) (api.getAtribute("classes", pClass, "levels"));
+        //TODO add class level information
+
         if (archetype.compareTo("default") != 0)
             classInformation.put("archetype", (api.getAtribute("subclasses", archetype)));
+        for (int i = 0; i < ((ArrayList) classInformation.get("proficiencies")).size(); i++)
+            a.add("proficiency:" + ((Map) ((ArrayList) classInformation.get("proficiencies")).get(i)).get("index"));
 
 
         return a;//TODO implement this
