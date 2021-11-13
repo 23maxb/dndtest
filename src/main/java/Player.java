@@ -17,8 +17,12 @@ public class Player extends Entity {//TODO add multi classing
     }
 
     public ArrayList<String> getHitDie() throws Exception {
+        return Player.getHitDie(getPlayerClass());
+    }
+
+    public static ArrayList<String> getHitDie(ArrayList<String> classes) throws Exception {
         ArrayList<String> a = new ArrayList<String>();
-        for (String b : getPlayerClass()) {
+        for (String b : classes) {
             a.add(b.substring(b.lastIndexOf(".") + 1) + "d" + api.getAtribute("classes", b.substring(0, b.indexOf(".")), "hit_die").toString());
         }
         return a;
@@ -112,7 +116,7 @@ public class Player extends Entity {//TODO add multi classing
                     break;
             }
         }
-        playerClass.add(classToAdd + ".1");//TODO implement level included in class
+        playerClass.add(classToAdd + ".1");
     }
 
     public void checkStatuses() {
