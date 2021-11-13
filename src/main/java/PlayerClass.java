@@ -70,6 +70,8 @@ public class PlayerClass {
         Map<String, Object> classInformation = (Map<String, Object>) (api.getAtribute("classes", pClass));
         if (archetype.compareTo("default") != 0)
             classInformation.put("archetype", (api.getAtribute("subclasses", archetype)));
+
+
         return a;//TODO implement this
     }
 

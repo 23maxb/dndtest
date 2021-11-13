@@ -16,6 +16,105 @@ public class Player extends Entity {//TODO add multi classing
         this.statuses = statuses;
     }
 
+    public ArrayList<String> getHitDie() throws Exception {
+        ArrayList<String> a = new ArrayList<String>();
+        for (String b : getPlayerClass()) {
+            a.add(b.substring(b.lastIndexOf(".") + 1) + "d" + api.getAtribute("classes", b.substring(0, b.indexOf(".")), "hit_die").toString());
+        }
+        return a;
+    }
+
+    //format baseclass.arcehtype
+    //ex: fighter.gunslinger
+    public void addClass(String classToAdd) throws Exception {
+        //checking if the level is accidentially added
+        try {
+            int level = Integer.parseInt(classToAdd.split("\\.")[2]);
+            addClass(classToAdd.substring(0, classToAdd.lastIndexOf(".")));
+            return;
+        } catch (Exception ignored) {
+        }
+        //checking if the format is correct and correcting as needed
+        String a = classToAdd.split("\\.")[2];
+        if (!classToAdd.contains(".")) {
+            addClass(classToAdd + ".default");
+            return;
+        }
+        String[] req = PlayerClass.getRequirementsForMultiClassing(classToAdd.substring(0, classToAdd.indexOf(".")));
+        if (req[0].contains("need")) {
+            int needed = Integer.parseInt(req[0].substring(req[0].lastIndexOf(":") + 1));
+            int have = 0;
+            for (String l : req) {
+                final int i = Integer.parseInt(l.substring(l.indexOf(".") + 1));
+                final String message = "Cannot add class since the " + l.substring(0, l.indexOf(":")) + " stat does not meet the requirement " + (l.substring(l.indexOf(".") + 1));
+                switch (l.substring(0, l.indexOf(":"))) {
+                    case "need":
+                        break;
+                    case "str":
+                        if (!(strength < i))
+                            have++;
+                        break;
+                    case "dex":
+                        if (!(dexterity < i))
+                            have++;
+                        break;
+                    case "con":
+                        if (!(constitution < i))
+                            have++;
+                        break;
+                    case "int":
+                        if (!(intelligence < i))
+                            have++;
+                        break;
+                    case "wis":
+                        if (!(wisdom < i))
+                            have++;
+                        break;
+                    case "cha":
+                        if (!(charisma < i))
+                            have++;
+                        break;
+                }
+            }
+            if (have >= needed) {
+                playerClass.add(classToAdd + ".1");
+                return;
+            } else
+                throw new Exception("You do not meet enough requirements to add this class");
+        }
+        for (String j : req) {
+            final int i = Integer.parseInt(j.substring(j.indexOf(".") + 1));
+            final String message = "Cannot add class since the " + j.substring(0, j.indexOf(":")) + " stat does not meet the requirement " + (j.substring(j.indexOf(".") + 1));
+            switch (j.substring(0, j.indexOf(":"))) {
+                case "str":
+                    if (strength < i)
+                        throw new Exception(message);
+                    break;
+                case "dex":
+                    if (dexterity < i)
+                        throw new Exception(message);
+                    break;
+                case "con":
+                    if (constitution < i)
+                        throw new Exception(message);
+                    break;
+                case "int":
+                    if (intelligence < i)
+                        throw new Exception(message);
+                    break;
+                case "wis":
+                    if (wisdom < i)
+                        throw new Exception(message);
+                    break;
+                case "cha":
+                    if (charisma < i)
+                        throw new Exception(message);
+                    break;
+            }
+        }
+        playerClass.add(classToAdd + ".1");//TODO implement level included in class
+    }
+
     public void checkStatuses() {
         for (StatusEffect a : statuses)
             a.update();
@@ -66,7 +165,7 @@ public class Player extends Entity {//TODO add multi classing
     public Player(String playerClass, int money, ArrayList<item> a, double maxHealth, boolean m, String name, boolean ren, String race,
                   String raceArchetype, String classArchetype) throws Exception {
         super(maxHealth, name, ren, race, raceArchetype);
-        this.playerClass.add(playerClass + "." + classArchetype);
+        this.playerClass.add(playerClass + "." + classArchetype + "." + "1");
         bronzeCoins = money;
         inventory = a;
         calculateStats();
