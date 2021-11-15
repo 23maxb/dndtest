@@ -28,10 +28,10 @@ public class Player extends Entity {//TODO add multi classing
         return a;
     }
 
-    //format baseclass.arcehtype
+    //format baseclass.archetype
     //ex: fighter.gunslinger
     public void addClass(String classToAdd) throws Exception {
-        //checking if the level is accidentially added
+        //checking if the level is accidentally added
         try {
             int level = Integer.parseInt(classToAdd.split("\\.")[2]);
             addClass(classToAdd.substring(0, classToAdd.lastIndexOf(".")));
@@ -120,9 +120,19 @@ public class Player extends Entity {//TODO add multi classing
     }
 
     public void checkStatuses() {
-        for (StatusEffect a : statuses)
+        for (StatusEffect a : statuses) {
             a.update();
+            this.apply(a.getBonus());//TODO IMPLEMENT applying statuses
+        }
     }
+
+    public void apply(ArrayList<String> bonus) {
+        for (String a : bonus)
+            switch (a.substring(0, a.indexOf(":"))) {
+                case "":
+
+            }
+    }//TODO fix thsi method
 
     public void turnTickStatuses() {
         for (StatusEffect a : statuses)

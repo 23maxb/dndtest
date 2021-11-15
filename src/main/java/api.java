@@ -5,6 +5,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -27,16 +28,22 @@ public class api {
         return (Map<String, String>) (new ObjectMapper().readValue(JSON_SOURCE, HashMap.class));
     }
 
+    public static ArrayList jsonToArrayList(@NotNull String JSON_SOURCE) throws Exception {
+        return new ObjectMapper().readValue(JSON_SOURCE, ArrayList.class);
+    }
+
     public static @NotNull String get5eEntryPath(String @NotNull ... args) throws Exception {
         String path = Arrays.stream(args).map(arg -> arg + "/").collect(Collectors.joining("", "/api/", ""));
         return searchCurl("https://www.dnd5eapi.co" + path);
     }
 
-    public static Map<String, String> getValueOfPath(String @NotNull ... args) throws Exception {
-        return jsonToMap(get5eEntryPath(args));
+    public static Object getValueOfPath(String @NotNull ... args) throws Exception {
+        try {
+            return jsonToMap(get5eEntryPath(args));
+        } catch (Exception E) {
+            return jsonToArrayList(get5eEntryPath(args));
+        }
     }
-//TODO fix this so the following line works
-    //api.getAtribute("classes","barbarian","levels")
 
     public static Object getAtribute(String @NotNull ... args) throws Exception {
         if (args.length == 0)
@@ -49,7 +56,10 @@ public class api {
             String[] a = new String[i + 1];
             System.arraycopy(args, 0, a, 0, a.length);
             try {
+
                 toReturn = getValueOfPath(a);
+
+
             } catch (Exception E) {
                 assert (toReturn instanceof Map<?, ?>);
                 try {
@@ -64,6 +74,4 @@ public class api {
         assert toReturn != null : "The argument " + args[args.length - 1] + " was invalid and caused an error.";
         return toReturn;
     }
-
-
 }

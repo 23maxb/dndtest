@@ -95,6 +95,8 @@ public class StatusEffect {
         update();
     }
 
+
+
     public void turnTick(int turns) {
         turnsActive += turns;
         update();
