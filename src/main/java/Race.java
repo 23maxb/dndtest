@@ -13,10 +13,10 @@ public class Race {
     //unchecked same
     public static @NotNull ArrayList<String> getBonuses(@NotNull String race, @NotNull String raceArchetype) throws Exception {
         ArrayList<String> a = new ArrayList<String>();
-        Map<String, Object> raceInformation = (Map<String, Object>) (api.getAtribute("races", race));
+        Map<String, Object> raceInformation = (Map<String, Object>) (api.getAttribute("races", race));
         //subrace
         if (raceArchetype.compareTo("default") != 0)
-            raceInformation.put("archetype", (api.getAtribute("subraces", raceArchetype)));
+            raceInformation.put("archetype", (api.getAttribute("subraces", raceArchetype)));
         //speed
         a.add("speed:" + raceInformation.get("speed"));
         //ability bonuses

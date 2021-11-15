@@ -45,7 +45,7 @@ public class api {
         }
     }
 
-    public static Object getAtribute(String @NotNull ... args) throws Exception {
+    public static Object getAttribute(String @NotNull ... args) throws Exception {
         if (args.length == 0)
             return getValueOfPath();
         //changes all arguments to lower case

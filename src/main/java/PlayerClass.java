@@ -67,12 +67,12 @@ public class PlayerClass {
 
     public static @NotNull ArrayList<String> getClassBonuses(String pClass, String archetype, int level) throws Exception {
         ArrayList<String> a = new ArrayList<String>();
-        Map<String, Object> classInformation = (Map<String, Object>) (api.getAtribute("classes", pClass));
-        Map<String, Object> classLevelInformation = (Map<String, Object>) (api.getAtribute("classes", pClass, "levels"));
+        Map<String, Object> classInformation = (Map<String, Object>) (api.getAttribute("classes", pClass));
+        Map<String, Object> classLevelInformation = (Map<String, Object>) (api.getAttribute("classes", pClass, "levels"));
         //TODO add class level information
 
         if (archetype.compareTo("default") != 0)
-            classInformation.put("archetype", (api.getAtribute("subclasses", archetype)));
+            classInformation.put("archetype", (api.getAttribute("subclasses", archetype)));
         for (int i = 0; i < ((ArrayList) classInformation.get("proficiencies")).size(); i++)
             a.add("proficiency:" + ((Map) ((ArrayList) classInformation.get("proficiencies")).get(i)).get("index"));
 
@@ -94,23 +94,23 @@ public class PlayerClass {
 
     public static String[] getRequirementsForMultiClassing(String classToCheck) throws Exception {
         try {
-            int size = ((ArrayList) (api.getAtribute("classes", classToCheck, "multi_classing", "prerequisites"))).size();
+            int size = ((ArrayList) (api.getAttribute("classes", classToCheck, "multi_classing", "prerequisites"))).size();
             String[] reqs = new String[size];
             System.out.println(size);
             for (int i = 0; i < size; i++)
-                reqs[i] = (((Map) ((Map) ((ArrayList) (api.getAtribute("classes", classToCheck, "multi_classing", "prerequisites"))).get(i)).get("ability_score")).get("index"))
+                reqs[i] = (((Map) ((Map) ((ArrayList) (api.getAttribute("classes", classToCheck, "multi_classing", "prerequisites"))).get(i)).get("ability_score")).get("index"))
                         + ":" +
-                        ((Map) (((ArrayList) (api.getAtribute("classes", classToCheck, "multi_classing", "prerequisites"))).get(i))).get("minimum_score");
+                        ((Map) (((ArrayList) (api.getAttribute("classes", classToCheck, "multi_classing", "prerequisites"))).get(i))).get("minimum_score");
             return reqs;
         } catch (Exception E) {
 
-            int size = ((ArrayList) api.getAtribute("classes", classToCheck, "multi_classing", "prerequisite_options", "from")).size();
+            int size = ((ArrayList) api.getAttribute("classes", classToCheck, "multi_classing", "prerequisite_options", "from")).size();
             String[] reqs = new String[size + 1];
             reqs[0] = "need:1";
             for (int i = 1; i < size + 1; i++)
-                reqs[i] = ((Map) ((Map) ((ArrayList) api.getAtribute("classes", classToCheck, "multi_classing", "prerequisite_options", "from")).get(i - 1)).get("ability_score")).get("index") +
+                reqs[i] = ((Map) ((Map) ((ArrayList) api.getAttribute("classes", classToCheck, "multi_classing", "prerequisite_options", "from")).get(i - 1)).get("ability_score")).get("index") +
                         ":" +
-                        ((Map) (((ArrayList) api.getAtribute("classes", classToCheck, "multi_classing", "prerequisite_options", "from")).get(i - 1))).get("minimum_score");
+                        ((Map) (((ArrayList) api.getAttribute("classes", classToCheck, "multi_classing", "prerequisite_options", "from")).get(i - 1))).get("minimum_score");
             return reqs;
         }
     }

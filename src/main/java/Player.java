@@ -23,7 +23,7 @@ public class Player extends Entity {//TODO add multi classing
     public static ArrayList<String> getHitDie(ArrayList<String> classes) throws Exception {
         ArrayList<String> a = new ArrayList<String>();
         for (String b : classes) {
-            a.add(b.substring(b.lastIndexOf(".") + 1) + "d" + api.getAtribute("classes", b.substring(0, b.indexOf(".")), "hit_die").toString());
+            a.add(b.substring(b.lastIndexOf(".") + 1) + "d" + api.getAttribute("classes", b.substring(0, b.indexOf(".")), "hit_die").toString());
         }
         return a;
     }
