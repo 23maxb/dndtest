@@ -1,9 +1,11 @@
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Map;
+
 public class Spell extends Action {
     public int level;
     public int casttime;
-    public int range;
+    public int range;// unit is feet
     public int duration;
     public String desc;
     public String damageFormula;
@@ -39,6 +41,45 @@ public class Spell extends Action {
         this.additionalLevelIncrease = additionalLevelIncrease;
         this.savingThrowModifier = savingThrowModifier;
         this.savingThrowType = savingThrowType;
+    }
+
+    public Spell(String name) throws Exception {
+        super(name, true);
+        Map newMap = (Map) api.getAttribute("spells", name);
+        configureAttributes(newMap);
+    }
+
+    public void configureAttributes(Map details) {
+        String a = ((String) details.get("range"));
+        range = Integer.parseInt(a.substring(0, a.indexOf("feet")));
+    }
+
+    //returns the new unit
+    public static String interpretRange(String range) {
+        int unitStartIndex = 0;
+        for (int i = 1; i < range.length(); i++) {
+            try {
+                Integer.parseInt(range.substring(0, i));
+            } catch (Exception E) {
+                unitStartIndex = i;
+                i = Integer.MAX_VALUE - 1;
+            }
+        }
+        String unit = range.substring(unitStartIndex).toLowerCase();
+        int value = Integer.parseInt(range.substring(0, unitStartIndex));
+        if (unit.compareTo("meter") == 0)
+            return (value * 3.28084) + " " + "feet";
+        if (unit.compareTo("kilometer") == 0)
+            return (value * 3280.84) + " " + "feet";
+        if (unit.compareTo("centimeter") == 0)
+            return (value * 0.0328084) + " " + "feet";
+        if (unit.compareTo("yard") == 0)
+            return (value * 3) + " " + "feet";
+        if (unit.compareTo("nautical mile") == 0)
+            return (value * 6076.11568) + " " + "feet";
+        if (unit.compareTo("mile") == 0)
+            return (value * 5280.00016896) + " " + "feet";
+        return value + " " + unit;//TODO verify this works
     }
 
     public String damageAtLevel(int spellSlotLevel) {

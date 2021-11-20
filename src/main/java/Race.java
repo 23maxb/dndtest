@@ -84,8 +84,6 @@ public class Race {
         for (int i = 0; raceArchetype.compareTo("default") != 0 && i < ((ArrayList<?>) ((Map) raceInformation.get("archetype")).get("traits")).size(); i++)
             a.add("traits:" + ((Map) ((ArrayList) ((Map) raceInformation.get("archetype")).get("traits")).get(i)).get("index"));
         return a;
-
-        //TODO add dragonborn attack thing
     }
 
     // if no archetype is specifically stated use a default racetype

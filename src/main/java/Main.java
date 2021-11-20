@@ -1,6 +1,7 @@
 public class Main {
     public static void main(String[] args) throws Exception {
-        String pClass = "barbarian";
-        System.out.println(api.getAttribute("classes", "barbarian", "levels"));
+        String a = "300 feet";
+        System.out.println(a);
+        System.out.println(Spell.interpretRange(a));
     }
 }
